@@ -16,7 +16,11 @@ public class lab5 {
     {"C", "B", "D", "A", "E"},  // 4
     {"A", "D", "B", "C", "E"}}; // 5
 
-    
+    public static int convertAlphabetToIndex(String letter) {
+        char l = letter.toLowerCase().charAt(0);
+        int pos = l - 'a';
+        return pos;
+    }
 
     
 }
