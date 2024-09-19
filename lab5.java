@@ -1,5 +1,7 @@
 import java.util.Collections;
 import java.util.List;
+import java.util.Arrays;
+
 public class lab5 {
 
     String[][] companyPreferences = 
@@ -22,5 +24,26 @@ public class lab5 {
         return pos;
     }
 
-    
+    public String[] findCompanyBestPref(int n) {
+        int[] bestPref = new int[n];
+        for (int i = 0; i < n; i++) {
+            bestPref[i] = 0;
+        }
+
+        for (int i = 0; i < n; i++) {
+            while (true) {
+                if () {
+                    break;
+                }
+            }
+        }
+
+    }
+
+    public void createMatches(int n) {
+        for (int i = 0; i < 5; i++) {
+            findCompanyBestPref(n);
+        }
+    }
+
 }
