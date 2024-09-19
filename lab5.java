@@ -8,7 +8,11 @@ public class lab5 {
     {"1", "3", "2", "4", "5"},
     {"2", "3", "5", "4", "1"}};
 
-    
+    public static int convertAlphabetToIndex(String letter) {
+        char l = letter.toLowerCase().charAt(0);
+        int pos = l - 'a';
+        return pos;
+    }
 
     
 }
