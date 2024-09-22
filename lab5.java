@@ -22,5 +22,72 @@ public class lab5 {
         return pos;
     }
 
+    public static String convertIndexToAlphabet(int index) {
+        int pos = index + 'a';
+        String letter =  Character.toString((char)pos);
+        return letter.toUpperCase();
+    }
+
+    public static int findProgrammerPreference(int programmerNum, String companyA, String companyB, String[][] companyPreferences, String[][] programmerPreferences) {
+        String[] programmerPreferenceArray = programmerPreferences[programmerNum - 1];
+        programmerPreferenceArray
+
+    }
+
+    // public static String[][] findSatisfactoryPairing(String[][] companyPreferences, String[][] programmerPreferences ) {
+    //     int length = companyPreferences.length;
+
+    //     String[][] preferences = new String[length][2];
+
+    //     boolean[] companyMatched = new boolean[length];
+
+    //     boolean[] programmerMatched = new boolean[length];
+
+    //     int programmerMatchCount = 0;
+
+    //     int[] companyIndex = new int[length];
+
+
+    //     for(int companyI = 0; companyI < length; companyI++) {
+
+    //         if(programmerMatchCount >= length) {
+    //             break;
+    //         }
+
+    //         while(!companyMatched[companyI]){
+
+    //             int currentCompanyPrefernceIndex = companyIndex[companyI];
+
+    //             String currentProgrammer = companyPreferences[companyI][currentCompanyPrefernceIndex];
+
+    //             int currentProgrammerNum = Integer.parseInt(currentProgrammer);
+
+    //             if(!programmerMatched[currentProgrammerNum - 1]){
+    //                 for(int compareCompanyI = companyI + 1; compareCompanyI < length; compareCompanyI++) {
+
+    //                  int compareCompanyPrefernceIndex = companyIndex[compareCompanyI];
+
+    //                  String compareCompanyProgrammer = companyPreferences[compareCompanyI][compareCompanyPrefernceIndex];
+                    
+    //                  int compareCompanyProgrammerNum = Integer.parseInt(compareCompanyProgrammer);
+
+    //                  if (currentProgrammerNum == compareCompanyProgrammerNum) {
+                        
+    //                  }
+
+    //                 }
+    //             }   
+    //             else {
+    //                 companyIndex[companyI]++;
+    //             }
+    //         }
+
+    //     }
+    // }
+
+    public static void main(String[] args) {
+        System.out.println(convertAlphabetToIndex("C"));
+        System.out.println(convertIndexToAlphabet(3));
+    }
     
 }
