@@ -1,5 +1,6 @@
 import java.util.Collections;
 import java.util.List;
+import java.util.Arrays;
 public class lab5 {
 
     String[][] companyPreferences = 
@@ -28,62 +29,72 @@ public class lab5 {
         return letter.toUpperCase();
     }
 
-    public static int findProgrammerPreference(int programmerNum, String companyA, String companyB, String[][] companyPreferences, String[][] programmerPreferences) {
+    public static int findProgrammerPreference(int programmerNum, int companyA, int companyB, String[][] companyPreferences, String[][] programmerPreferences) {
         String[] programmerPreferenceArray = programmerPreferences[programmerNum - 1];
-        programmerPreferenceArray
+
+        String companyAChar = convertIndexToAlphabet(companyA);
+        String companyBChar = convertIndexToAlphabet(companyB);
+
+        int indexA = Arrays.asList(programmerPreferenceArray).indexOf(companyAChar);
+        int indexB = Arrays.asList(programmerPreferenceArray).indexOf(companyBChar);
+
+        int programmerPreferenceI = Math.min(indexA, indexB);
+        
+        int preferredCompanyI = convertAlphabetToIndex(programmerPreferenceArray[programmerPreferenceI]);
+        return preferredCompanyI;
 
     }
 
-    // public static String[][] findSatisfactoryPairing(String[][] companyPreferences, String[][] programmerPreferences ) {
-    //     int length = companyPreferences.length;
+    public static String[][] findSatisfactoryPairing(String[][] companyPreferences, String[][] programmerPreferences ) {
+        int length = companyPreferences.length;
 
-    //     String[][] preferences = new String[length][2];
+        String[][] preferences = new String[length][2];
 
-    //     boolean[] companyMatched = new boolean[length];
+        boolean[] companyMatched = new boolean[length];
 
-    //     boolean[] programmerMatched = new boolean[length];
+        boolean[] programmerMatched = new boolean[length];
 
-    //     int programmerMatchCount = 0;
+        int programmerMatchCount = 0;
 
-    //     int[] companyIndex = new int[length];
+        int[] companyIndex = new int[length];
 
 
-    //     for(int companyI = 0; companyI < length; companyI++) {
+        for(int companyI = 0; companyI < length; companyI++) {
 
-    //         if(programmerMatchCount >= length) {
-    //             break;
-    //         }
+            if(programmerMatchCount >= length) {
+                break;
+            }
 
-    //         while(!companyMatched[companyI]){
+            while(!companyMatched[companyI]){
 
-    //             int currentCompanyPrefernceIndex = companyIndex[companyI];
+                int currentCompanyPrefernceIndex = companyIndex[companyI];
 
-    //             String currentProgrammer = companyPreferences[companyI][currentCompanyPrefernceIndex];
+                String currentProgrammer = companyPreferences[companyI][currentCompanyPrefernceIndex];
 
-    //             int currentProgrammerNum = Integer.parseInt(currentProgrammer);
+                int currentProgrammerNum = Integer.parseInt(currentProgrammer);
 
-    //             if(!programmerMatched[currentProgrammerNum - 1]){
-    //                 for(int compareCompanyI = companyI + 1; compareCompanyI < length; compareCompanyI++) {
+                if(!programmerMatched[currentProgrammerNum - 1]){
+                    for(int compareCompanyI = companyI + 1; compareCompanyI < length; compareCompanyI++) {
 
-    //                  int compareCompanyPrefernceIndex = companyIndex[compareCompanyI];
+                     int compareCompanyPrefernceIndex = companyIndex[compareCompanyI];
 
-    //                  String compareCompanyProgrammer = companyPreferences[compareCompanyI][compareCompanyPrefernceIndex];
+                     String compareCompanyProgrammer = companyPreferences[compareCompanyI][compareCompanyPrefernceIndex];
                     
-    //                  int compareCompanyProgrammerNum = Integer.parseInt(compareCompanyProgrammer);
+                     int compareCompanyProgrammerNum = Integer.parseInt(compareCompanyProgrammer);
 
-    //                  if (currentProgrammerNum == compareCompanyProgrammerNum) {
+                     if (currentProgrammerNum == compareCompanyProgrammerNum) {
                         
-    //                  }
+                     }
 
-    //                 }
-    //             }   
-    //             else {
-    //                 companyIndex[companyI]++;
-    //             }
-    //         }
+                    }
+                }   
+                else {
+                    companyIndex[companyI]++;
+                }
+            }
 
-    //     }
-    // }
+        }
+    }
 
     public static void main(String[] args) {
         System.out.println(convertAlphabetToIndex("C"));
