@@ -1,5 +1,3 @@
-import java.util.Collections;
-import java.util.List;
 import java.util.Arrays;
 public class lab5 {
 
@@ -45,63 +43,87 @@ public class lab5 {
 
     }
 
-    // public static String[][] findSatisfactoryPairing(String[][] companyPreferences, String[][] programmerPreferences ) {
-    //     int length = companyPreferences.length;
+    public static void matchProgrammerWithCompany(int companyI, int programmerNum, int onPreference, boolean[] companyMatched, boolean[] programmerMatched, String[][] preferences) {
+        preferences[onPreference][0] = convertIndexToAlphabet(companyI);
+        preferences[onPreference][1] = Integer.toString(programmerNum);
 
-    //     String[][] preferences = new String[length][2];
+        companyMatched[companyI] = true;
+        programmerMatched[programmerNum -1] = true;
+    }
 
-    //     boolean[] companyMatched = new boolean[length];
+    public static String[][] findSatisfactoryPairing(String[][] companyPreferences, String[][] programmerPreferences ) {
+        int length = companyPreferences.length;
 
-    //     boolean[] programmerMatched = new boolean[length];
+        String[][] preferences = new String[length][2];
 
-    //     int programmerMatchCount = 0;
+        boolean[] companyMatched = new boolean[length];
 
-    //     int[] companyIndex = new int[length];
+        boolean[] programmerMatched = new boolean[length];
+
+        int programmerMatchCount = 0;
+
+        int[] companyIndex = new int[length];
 
 
-    //     for(int companyI = 0; companyI < length; companyI++) {
+        for(int companyI = 0; companyI < length; companyI++) {
 
-    //         if(programmerMatchCount >= length) {
-    //             break;
-    //         }
+            if(programmerMatchCount >= length) {
+                break;
+            }
 
-    //         while(!companyMatched[companyI]){
+            while(!companyMatched[companyI]){
 
-    //             int currentCompanyPrefernceIndex = companyIndex[companyI];
+                int currentCompanyPrefernceIndex = companyIndex[companyI];
 
-    //             String currentProgrammer = companyPreferences[companyI][currentCompanyPrefernceIndex];
+                String currentProgrammer = companyPreferences[companyI][currentCompanyPrefernceIndex];
 
-    //             int currentProgrammerNum = Integer.parseInt(currentProgrammer);
+                int currentProgrammerNum = Integer.parseInt(currentProgrammer);
 
-    //             if(!programmerMatched[currentProgrammerNum - 1]){
-    //                 for(int compareCompanyI = companyI + 1; compareCompanyI < length; compareCompanyI++) {
+                int topCompanyIForCurrentProgrammer = companyI;
 
-    //                  int compareCompanyPrefernceIndex = companyIndex[compareCompanyI];
+                if(!programmerMatched[currentProgrammerNum - 1]){
+                    for(int compareCompanyI = companyI + 1; compareCompanyI < length; compareCompanyI++) {
 
-    //                  String compareCompanyProgrammer = companyPreferences[compareCompanyI][compareCompanyPrefernceIndex];
-                    
-    //                  int compareCompanyProgrammerNum = Integer.parseInt(compareCompanyProgrammer);
+                        int compareCompanyPrefernceIndex = companyIndex[compareCompanyI];
 
-    //                  if (currentProgrammerNum == compareCompanyProgrammerNum) {
+                        String compareCompanyProgrammer = companyPreferences[compareCompanyI][compareCompanyPrefernceIndex];
                         
-    //                  }
+                        int compareCompanyProgrammerNum = Integer.parseInt(compareCompanyProgrammer);
 
-    //                 }
-    //             }   
-    //             else {
-    //                 companyIndex[companyI]++;
-    //             }
-    //         }
+                     if (currentProgrammerNum == compareCompanyProgrammerNum) {
+                        topCompanyIForCurrentProgrammer = findProgrammerPreference(currentProgrammerNum, topCompanyIForCurrentProgrammer, compareCompanyI, programmerPreferences);
+                     }
 
-    //     }
-    // }
+                     //if at the end of the comparing companies, match current programmer with current company
+                     if(compareCompanyI == length -1) {
+                        //if current company is not top company for that programmer, move onto their next company preference;
+                        if(topCompanyIForCurrentProgrammer != companyI) {
+                            companyIndex[companyI]++;
+                        }
+                        matchProgrammerWithCompany(topCompanyIForCurrentProgrammer, currentProgrammerNum, programmerMatchCount, companyMatched, programmerMatched, preferences);
+                        programmerMatchCount++;
+                     }
+
+                    }
+                }   
+                else {
+                    companyIndex[companyI]++;
+                }
+            }
+        }
+        for(int i=0; i < length; i++){
+            System.out.println(Arrays.toString(preferences[i]));
+        }
+        return preferences;
+    }
 
     public static void main(String[] args) {
-        System.out.println(convertAlphabetToIndex("C"));
-        System.out.println(convertIndexToAlphabet(3));
+        // System.out.println(convertAlphabetToIndex("C"));
+        // System.out.println(convertIndexToAlphabet(3));
 
-        System.out.println(findProgrammerPreference(1, 0, 4, programmerPreferences));
-
+        // System.out.println(findProgrammerPreference(1, 0, 4, programmerPreferences));
+        
+        findSatisfactoryPairing(companyPreferences, programmerPreferences);
     }
     
 }
