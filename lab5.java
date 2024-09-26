@@ -237,3 +237,14 @@ public class lab5 {
     }
     
 }
+
+// Jaden
+// Linnea
+
+// all preferences are stored in double string arrays, in order of most preferred to least preferred and they can all be tested by running the program
+
+// Explain why Program is correct
+// Our algorithm is correct because it first searches the top preferences of company to see if there are any matches with the programmer we are trying to match for the first company we are checking. If there are not other companies wanting that programmer as their first preference, that company matches with said programmer, and it does not matter as if that programmer likes the company or not, as the company likes them better than all other programmers. If there is a match or more than one match, the algorithm will see which company is the programmers first pick, and the other company/s will have to move on and try and match with their next preferred programmer. If a company succeeds in matching with their next preferred programmer, this will be a satisfactory pairing as that programmer for them is better than all other available programmers, (excluding the one that is already matched and happier with the other company, as they are no longer available) the algorithm continues like this until all programmers are matched.
+
+// Explain program efficiency in worst case
+// in the worst case, this algorithm is in big theta of n^2, where n = how many companys/programmers there are. Our algorithm has an inner while loop that runs from n-1 to n 2 all the way down to 1 in the worst case, running  n-1 times in the worst case where every company is matched with their first choice for a programmer, due to the outer for loop. This is in essence the formula we know where the sum of all is from I = 1 to n can be represented as n(n+1)/2. If you just substitute n with n-1 in the formula, you get (n-1)(n)/2, which is in big theta of n^2, which is why the worst case is thus in big theta of n^2
