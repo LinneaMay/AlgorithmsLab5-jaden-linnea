@@ -24,21 +24,20 @@ public class lab5 {
         return pos;
     }
 
-    public String findCompanyBestPref(int n, int arrayIndex) {
+    public String[] findCompanyBestPref(int n) {
         String bestPref = "";
-        int index = arrayIndex;
-        for (int i = 0; i < n; i++) {
-            if (index >= companyPreferences.length) {
-                break;
-            }
-            if (companyPreferences[index][i].equals(programmerPreferences[index][i])) {
-                index++;
-                if (index >= companyPreferences.length) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == 4) {
+                    bestPref = companyPreferences[i][j];
                     break;
                 }
-                i = -1;
-            } else {
-                bestPref = companyPreferences[index][i];
+                if (companyPreferences[i][j].equals(companyPreferences[i][j])) {
+                    i++;
+                    j = -1;
+                } else {
+                    bestPref = companyPreferences[i][j];
+                }
             }
         }
         return bestPref;
@@ -46,10 +45,7 @@ public class lab5 {
 
     public void createMatches(int n) {
         String[] matches = new String[5];
-        for (int i = 0; i < 5; i++) {
-            findCompanyBestPref(n, i);
-            matches[i] = findCompanyBestPref(n, i);
-        }
+            findCompanyBestPref(n);
         System.out.println(Arrays.toString(matches));
     }
 
