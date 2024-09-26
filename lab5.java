@@ -1,19 +1,8 @@
+// Jaden
+// Linnea
+
 import java.util.Arrays;
 public class lab5 {
-
-    static String[][] companyPreferences = 
-    {{"2", "5", "1", "3", "4"}, // A
-    {"1", "2", "3", "4", "5"},  // B
-    {"5", "3", "2", "1", "4"},  // C
-    {"1", "3", "2", "4", "5"},  // D
-    {"2", "3", "5", "4", "1"}}; // E 
-
-    static String[][] programmerPreferences = 
-    {{"E", "A", "D", "B", "C"}, // 1
-    {"D", "E", "B", "A", "C"},  // 2
-    {"D", "B", "C", "E", "A"},  // 3
-    {"C", "B", "D", "A", "E"},  // 4
-    {"A", "D", "B", "C", "E"}}; // 5
 
     public static int convertAlphabetToIndex(String letter) {
         char l = letter.toLowerCase().charAt(0);
@@ -25,6 +14,55 @@ public class lab5 {
         int pos = index + 'a';
         String letter =  Character.toString((char)pos);
         return letter.toUpperCase();
+    }
+
+    public static String[] findPairWithCompany(String company, String[][] preferences) {
+        int length = preferences.length;
+        for(int i = 0; i < length; i++) {
+            if(preferences[i][0].equals(company)) {
+                return preferences[i];
+            }
+        }
+        return null;
+    }
+
+    
+
+    public static boolean testPairPreferences(String[][] preferences, String[][] programmerPreferences, String[][] companyPreferences){
+        int length = preferences.length;
+        for(int i = 0; i < length; i++) {
+
+            String pairedCompany = preferences[i][0];
+
+            int pairedProgrammer = Integer.parseInt(preferences[i][1]);
+
+            String[] programmerPreferenceArray = programmerPreferences[pairedProgrammer - 1];
+
+            int pairedCompanyIndex = Arrays.asList(programmerPreferenceArray).indexOf(pairedCompany);
+
+            for(int j = pairedCompanyIndex - 1; j >= 0; j--) {
+
+                String checkedCompany = programmerPreferenceArray[j];
+
+                String[] checkedPair = findPairWithCompany(checkedCompany, preferences);
+
+                String comparisonProgrammer = checkedPair[1];
+
+                int checkedCompanyI = convertAlphabetToIndex(checkedCompany);
+
+                String[] companyPreferenceArray = companyPreferences[checkedCompanyI];
+
+                int currentProgrammerI = Arrays.asList(companyPreferenceArray).indexOf(String.valueOf(pairedProgrammer));
+
+                int compareProgrammerI = Arrays.asList(companyPreferenceArray).indexOf(comparisonProgrammer);
+
+                if(compareProgrammerI > currentProgrammerI) {
+                    System.out.println("this pairing is not satisfactory: " + Arrays.toString(preferences[i]) + " with this pairing: " + Arrays.toString(checkedPair));
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static int findProgrammerPreference(int programmerNum, int companyA, int companyB, String[][] programmerPreferences) {
@@ -82,6 +120,11 @@ public class lab5 {
                 int topCompanyIForCurrentProgrammer = companyI;
 
                 if(!programmerMatched[currentProgrammerNum - 1]){
+                    if(companyI + 1 >= length) {
+                        matchProgrammerWithCompany(companyI, currentProgrammerNum, programmerMatchCount, companyMatched, programmerMatched, preferences);
+                        programmerMatchCount++;
+                        break;
+                    }
                     for(int compareCompanyI = companyI + 1; compareCompanyI < length; compareCompanyI++) {
 
                         int compareCompanyPrefernceIndex = companyIndex[compareCompanyI];
@@ -102,6 +145,7 @@ public class lab5 {
                         }
                         matchProgrammerWithCompany(topCompanyIForCurrentProgrammer, currentProgrammerNum, programmerMatchCount, companyMatched, programmerMatched, preferences);
                         programmerMatchCount++;
+
                      }
 
                     }
@@ -122,8 +166,74 @@ public class lab5 {
         // System.out.println(convertIndexToAlphabet(3));
 
         // System.out.println(findProgrammerPreference(1, 0, 4, programmerPreferences));
-        
-        findSatisfactoryPairing(companyPreferences, programmerPreferences);
+
+        String[][] companyPreferences = 
+        {{"2", "5", "1", "3", "4"}, // A
+        {"1", "2", "3", "4", "5"},  // B
+        {"5", "3", "2", "1", "4"},  // C
+        {"1", "3", "2", "4", "5"},  // D
+        {"2", "3", "5", "4", "1"}}; // E 
+    
+        String[][] programmerPreferences = 
+        {{"E", "A", "D", "B", "C"}, // 1
+        {"D", "E", "B", "A", "C"},  // 2
+        {"D", "B", "C", "E", "A"},  // 3
+        {"C", "B", "D", "A", "E"},  // 4
+        {"A", "D", "B", "C", "E"}}; // 5
+
+        String[][] companyPreferences2 = 
+        {{"5", "1", "2", "3", "4"}, // A
+        {"1", "2", "3", "4", "5"},  // B
+        {"2", "5", "1", "3", "4"},  // C
+        {"1", "3", "2", "4", "5"},  // D
+        {"4", "3", "5", "2", "1"}}; // E 
+    
+        String[][] programmerPreferences2 = 
+        {{"E", "A", "D", "B", "C"}, // 1  
+        {"D", "A", "E", "C", "B"},  // 2
+        {"C", "E", "D", "A", "B"},  // 3
+        {"D", "E", "B", "A", "C"},  // 4
+        {"A", "D", "B", "C", "E"}};  // 5
+
+        String[][] companyPreferences3 = 
+        {{"1", "2", "3", "4", "5"}, // A
+        {"1", "2", "3", "4", "5"},  // B
+        {"2", "5", "1", "3", "4"},  // C
+        {"1", "3", "2", "4", "5"},  // D
+        {"4", "3", "5", "2", "1"}}; // E 
+    
+        String[][] programmerPreferences3 = 
+        {{"E", "A", "D", "B", "C"}, // 1  
+        {"D", "E", "B", "A", "C"},  // 2
+        {"C", "E", "D", "A", "B"},  // 3
+        {"C", "E", "D", "A", "B"},  // 4
+        {"A", "D", "B", "C", "E"}};  // 5
+
+        String[][] testUnsatisfactoryPreferences =
+        {
+            {"C","4"},
+            {"A", "3"},
+            {"B", "5"},
+            {"D", "2"},
+            {"E", "1"}
+
+        };
+        System.out.println("are fake Preferences valid:");
+        System.out.println(testPairPreferences(testUnsatisfactoryPreferences, programmerPreferences, companyPreferences));
+
+        System.out.println("test trial 1");
+        String[][] preferences = findSatisfactoryPairing(companyPreferences, programmerPreferences);
+        System.out.println("are Preferences valid: " + testPairPreferences(preferences, programmerPreferences, companyPreferences));
+
+        System.out.println("test trial 2");
+        String[][] preferences2 = findSatisfactoryPairing(companyPreferences2, programmerPreferences2);
+        System.out.println("are Preferences valid: " + testPairPreferences(preferences2, programmerPreferences2, companyPreferences2));
+
+        System.out.println("test trial 3");
+        String[][] preferences3 = findSatisfactoryPairing(companyPreferences3, programmerPreferences3);
+        System.out.println("are Preferences valid: " + testPairPreferences(preferences3, programmerPreferences3, companyPreferences3));
+
+
     }
     
 }
